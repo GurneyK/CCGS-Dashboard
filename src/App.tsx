@@ -25,6 +25,7 @@ import {
   Filter,
   Gauge,
   HelpCircle,
+  History,
   Home,
   Image,
   Layers3,
@@ -45,7 +46,7 @@ import {
   UserRound,
 } from "lucide-react";
 
-type PageId = "command" | "agent" | "resources" | "deck" | "notifications" | "validation" | "settings";
+type PageId = "command" | "agent" | "resources" | "deck" | "history" | "notifications" | "validation" | "profile" | "settings";
 type Tone = "brand" | "success" | "warning" | "info" | "neutral" | "error";
 
 const navItems = [
@@ -53,8 +54,10 @@ const navItems = [
   { id: "agent", icon: Bot, label: "Deck Agent", meta: "Interactive build" },
   { id: "resources", icon: FileArchive, label: "Resource Library", meta: "Text, images, files" },
   { id: "deck", icon: LayoutPanelTop, label: "Deck Builder", meta: "Slides and sections" },
+  { id: "history", icon: History, label: "Historical CCGS", meta: "Continuity library" },
   { id: "notifications", icon: Bell, label: "Notifications", meta: "Tasks and alerts" },
   { id: "validation", icon: ClipboardCheck, label: "Validation Queue", meta: "Business review" },
+  { id: "profile", icon: UserRound, label: "My Profile", meta: "Role and activity" },
   { id: "settings", icon: Settings, label: "Settings", meta: "Owners and access" },
 ] satisfies Array<{ id: PageId; icon: typeof Home; label: string; meta: string }>;
 
@@ -218,34 +221,60 @@ const resourceCards = [
 
 const notifications = [
   {
+    id: "note-001",
     title: "Opportunity sizing owner requested",
     detail: "Finance needs to confirm the HC model reuse before the market sizing slide is locked.",
     time: "5 min ago",
     tone: "warning",
     owner: "Finance",
+    unread: true,
   },
   {
+    id: "note-002",
     title: "Nielsen BDL source connected",
     detail: "Customer-level EPOS data is available for UK Deodorants and ready for the agent run.",
     time: "18 min ago",
     tone: "success",
     owner: "CMI",
+    unread: true,
   },
   {
+    id: "note-003",
     title: "Image brief queued",
     detail: "Premium fragrance shelf visual is waiting for brand-approved product imagery.",
     time: "31 min ago",
     tone: "brand",
     owner: "Creative",
+    unread: true,
   },
   {
+    id: "note-004",
     title: "Legal review still open",
     detail: "Third-party data ingestion requires procurement and legal assessment.",
     time: "1 hr ago",
     tone: "warning",
     owner: "Legal",
+    unread: false,
   },
-] satisfies Array<{ title: string; detail: string; time: string; tone: Tone; owner: string }>;
+  {
+    id: "note-005",
+    title: "Historical CCGS pattern matched",
+    detail: "The agent found three prior-year patterns that can be reused for continuity in the new deck.",
+    time: "2 hrs ago",
+    tone: "info",
+    owner: "Agent",
+    unread: true,
+  },
+  {
+    id: "note-006",
+    title: "Profile permission updated",
+    detail: "Alex Kumar can now approve narrative drafts and request source-owner reviews.",
+    time: "Yesterday",
+    tone: "neutral",
+    owner: "Workspace admin",
+    unread: false,
+  },
+] satisfies Array<{ id: string; title: string; detail: string; time: string; tone: Tone; owner: string; unread: boolean }>;
 
 const deckSlides = [
   { number: "01", title: "Category growth thesis", status: "Draft ready", resources: 4, owner: "Agent" },
@@ -256,6 +285,75 @@ const deckSlides = [
   { number: "06", title: "Retail action plan", status: "In progress", resources: 2, owner: "Sales" },
   { number: "07", title: "Source attribution", status: "Evidence linked", resources: 9, owner: "Agent" },
   { number: "08", title: "Appendix and Q&A", status: "In progress", resources: 7, owner: "CSP" },
+];
+
+const historicalEntries = [
+  {
+    id: "hist-2025-deo-01",
+    title: "Grooming Rituals Are Becoming Self-Care Moments",
+    year: "2025",
+    category: "Deodorants",
+    status: "Published",
+    cvd: "Freshness confidence",
+    signal: "Routine-led usage language increased across social and U&A studies.",
+    reuse: "Use as continuity proof for fragrance-led premiumisation.",
+    source: "Historical CCGS deck",
+  },
+  {
+    id: "hist-2025-scl-01",
+    title: "Multi-Step Routines Are Driving Basket Expansion",
+    year: "2025",
+    category: "Skin Cleansing",
+    status: "Published",
+    cvd: "Routine building",
+    signal: "Shoppers bundled cleanse, treat, and fragrance-led finish products.",
+    reuse: "Translate the routine ladder into deodorants trade-across logic.",
+    source: "Skin Cleansing CCGS",
+  },
+  {
+    id: "hist-2025-oc-01",
+    title: "Whitening Remains the Default Premium Entry Point",
+    year: "2025",
+    category: "Oral Care",
+    status: "Published",
+    cvd: "Visible efficacy",
+    signal: "Premium entry relied on immediately understood consumer benefits.",
+    reuse: "Keep fragrance premium cues simple and shopper-legible.",
+    source: "Oral Care CCGS",
+  },
+  {
+    id: "hist-2024-deo-01",
+    title: "Antiperspirant Efficacy Claims Anchor Trust",
+    year: "2024",
+    category: "Deodorants",
+    status: "Archived",
+    cvd: "Long-lasting protection",
+    signal: "Functional reassurance remained the base permission to trade up.",
+    reuse: "Pair fragrance trade-up with durable freshness proof.",
+    source: "Historical CCGS archive",
+  },
+  {
+    id: "hist-2024-scl-01",
+    title: "Fragrance-Free Claims Gain Ground in Sensitive Skin",
+    year: "2024",
+    category: "Skin Cleansing",
+    status: "Archived",
+    cvd: "Sensitive reassurance",
+    signal: "Low-irritation and simplicity claims helped premium trust.",
+    reuse: "Flag a counter-signal for sensitive-skin shoppers.",
+    source: "CMI archive",
+  },
+  {
+    id: "hist-2024-oc-01",
+    title: "Sustainability Packaging Enters Mainstream Consideration",
+    year: "2024",
+    category: "Oral Care",
+    status: "Archived",
+    cvd: "Sustainable value",
+    signal: "Packaging credentials moved from niche to hygiene factor.",
+    reuse: "Add pack sustainability as a secondary evidence scan.",
+    source: "CSP archive",
+  },
 ];
 
 function Badge({ children, tone = "neutral" }: { children: React.ReactNode; tone?: Tone | string }) {
@@ -1042,17 +1140,130 @@ function DeckPage() {
   );
 }
 
-function NotificationsPage() {
+function HistoricalPage() {
+  const [activeCategory, setActiveCategory] = useState("All categories");
+  const [query, setQuery] = useState("");
+  const [selectedId, setSelectedId] = useState(historicalEntries[0].id);
+  const categories = ["All categories", "Deodorants", "Skin Cleansing", "Oral Care"];
+  const filteredEntries = historicalEntries.filter((entry) => {
+    const matchesCategory = activeCategory === "All categories" || entry.category === activeCategory;
+    const searchable = `${entry.title} ${entry.category} ${entry.year} ${entry.cvd}`.toLowerCase();
+    return matchesCategory && searchable.includes(query.toLowerCase());
+  });
+  const selectedEntry = historicalEntries.find((entry) => entry.id === selectedId) ?? historicalEntries[0];
+
+  return (
+    <section className="history-page">
+      <div className="history-header">
+        <div>
+          <Badge tone="brand">Continuity and pattern recognition</Badge>
+          <h1>Historical CCGS</h1>
+          <p>
+            Prior-year category growth strategy outputs are scanned for recurring CVDs, shopper shifts,
+            evidence patterns, and narrative continuity before the agent drafts a new deck.
+          </p>
+        </div>
+        <div className="history-search">
+          <Search size={17} aria-hidden="true" />
+          <input
+            aria-label="Search historical CCGS"
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search headlines..."
+            value={query}
+          />
+        </div>
+      </div>
+
+      <div className="history-tabs" aria-label="Historical CCGS category filter">
+        {categories.map((category) => (
+          <button
+            className={activeCategory === category ? "active" : ""}
+            key={category}
+            onClick={() => setActiveCategory(category)}
+            type="button"
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <div className="history-layout">
+        <div className="history-list">
+          {filteredEntries.map((entry) => (
+            <button
+              className={`history-row ${selectedEntry.id === entry.id ? "selected" : ""}`}
+              key={entry.id}
+              onClick={() => setSelectedId(entry.id)}
+              type="button"
+            >
+              <Badge tone={entry.status === "Published" ? "success" : "neutral"}>{entry.status}</Badge>
+              <span>
+                <strong>{entry.title}</strong>
+                <small>{entry.year} - {entry.category}</small>
+              </span>
+              <ChevronDown size={17} aria-hidden="true" />
+            </button>
+          ))}
+        </div>
+
+        <aside className="history-detail">
+          <div className="history-detail-card">
+            <Badge tone={selectedEntry.status === "Published" ? "success" : "neutral"}>{selectedEntry.status}</Badge>
+            <h2>{selectedEntry.title}</h2>
+            <dl>
+              <div>
+                <dt>Category</dt>
+                <dd>{selectedEntry.category}</dd>
+              </div>
+              <div>
+                <dt>Primary CVD</dt>
+                <dd>{selectedEntry.cvd}</dd>
+              </div>
+              <div>
+                <dt>Reusable pattern</dt>
+                <dd>{selectedEntry.reuse}</dd>
+              </div>
+            </dl>
+            <div className="history-signal">
+              <LineChart size={18} aria-hidden="true" />
+              <p>{selectedEntry.signal}</p>
+            </div>
+            <div className="history-source">
+              <FileSearch size={17} aria-hidden="true" />
+              <span>{selectedEntry.source}</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <footer className="history-footer">
+        CCGS Copilot mock. Figures shown are illustrative; production values are computed from live source data once connected.
+      </footer>
+    </section>
+  );
+}
+
+function NotificationsPage({
+  onMarkAllRead,
+  onOpenItem,
+  readNotificationIds,
+}: {
+  onMarkAllRead: () => void;
+  onOpenItem: (id: string) => void;
+  readNotificationIds: string[];
+}) {
+  const unreadCount = notifications.filter((notification) => !readNotificationIds.includes(notification.id)).length;
+
   return (
     <>
       <section className="page-heading">
         <div>
-          <Badge tone="warning">3 open actions</Badge>
+          <Badge tone={unreadCount > 0 ? "warning" : "success"}>{unreadCount} unread updates</Badge>
           <h1>Notifications</h1>
           <p>Business, source, and approval events that affect the deck build.</p>
         </div>
         <div className="hero-actions">
-          <button className="button secondary" type="button">
+          <button className="button secondary" onClick={onMarkAllRead} type="button">
             <CheckCircle2 size={16} aria-hidden="true" />
             Mark read
           </button>
@@ -1065,7 +1276,7 @@ function NotificationsPage() {
 
       <div className="notification-page-grid">
         <Panel title="Notification center" description="Prioritized updates for the current CCGS run">
-          <NotificationList />
+          <NotificationList onOpenItem={onOpenItem} readNotificationIds={readNotificationIds} />
         </Panel>
         <Panel title="Action summary" description="Open items by owner">
           <div className="owner-stack">
@@ -1088,24 +1299,36 @@ function NotificationsPage() {
   );
 }
 
-function NotificationList({ compact = false }: { compact?: boolean }) {
+function NotificationList({
+  compact = false,
+  onOpenItem,
+  readNotificationIds,
+}: {
+  compact?: boolean;
+  onOpenItem: (id: string) => void;
+  readNotificationIds: string[];
+}) {
   const items = compact ? notifications.slice(0, 3) : notifications;
 
   return (
     <div className="notification-list">
-      {items.map((notification) => (
-        <article className={`notification-item ${notification.tone}`} key={notification.title}>
-          <span className="notification-dot" />
-          <div>
-            <strong>{notification.title}</strong>
-            <p>{notification.detail}</p>
-            <small>{notification.owner} - {notification.time}</small>
-          </div>
-          <button className="icon-button subtle" type="button" aria-label={`Open ${notification.title}`}>
-            <ArrowUpRight size={16} aria-hidden="true" />
-          </button>
-        </article>
-      ))}
+      {items.map((notification) => {
+        const isRead = readNotificationIds.includes(notification.id);
+
+        return (
+          <article className={`notification-item ${notification.tone} ${isRead ? "read" : "unread"}`} key={notification.id}>
+            <span className="notification-dot" />
+            <div>
+              <strong>{notification.title}</strong>
+              <p>{notification.detail}</p>
+              <small>{notification.owner} - {notification.time}</small>
+            </div>
+            <button className="icon-button subtle" onClick={() => onOpenItem(notification.id)} type="button" aria-label={`Open ${notification.title}`}>
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </button>
+          </article>
+        );
+      })}
     </div>
   );
 }
@@ -1143,6 +1366,99 @@ function ValidationPage() {
 
       <Panel title="Access model" description="API and static file split across sources">
         <SourceTable />
+      </Panel>
+    </>
+  );
+}
+
+function ProfilePage() {
+  return (
+    <>
+      <section className="page-heading">
+        <div>
+          <Badge tone="brand">My profile</Badge>
+          <h1>Alex Kumar</h1>
+          <p>Business lead profile for the UK Deodorants CCGS proof-of-concept workspace.</p>
+        </div>
+        <div className="hero-actions">
+          <button className="button secondary" type="button">
+            <Settings size={16} aria-hidden="true" />
+            Preferences
+          </button>
+          <button className="button primary" type="button">
+            <ShieldCheck size={16} aria-hidden="true" />
+            Request access
+          </button>
+        </div>
+      </section>
+
+      <div className="profile-layout">
+        <Panel title="Profile summary" description="Role, ownership, and workspace activity">
+          <div className="profile-card">
+            <span className="profile-avatar-large">AK</span>
+            <div>
+              <h2>Alex Kumar</h2>
+              <p>Business lead - Beauty and Wellbeing</p>
+              <div className="citation-row">
+                <Badge tone="brand">UK market</Badge>
+                <Badge tone="success">Narrative approver</Badge>
+                <Badge tone="neutral">CCGS PoC</Badge>
+              </div>
+            </div>
+          </div>
+          <div className="profile-stat-grid">
+            <div>
+              <strong>7</strong>
+              <span>Assigned reviews</span>
+            </div>
+            <div>
+              <strong>4</strong>
+              <span>Deck resources approved</span>
+            </div>
+            <div>
+              <strong>2</strong>
+              <span>Open access requests</span>
+            </div>
+          </div>
+        </Panel>
+
+        <Panel title="Permissions" description="Demo role capabilities">
+          <ul className="check-list stacked">
+            <li>
+              <CheckCircle2 size={16} />
+              Approve narrative drafts
+            </li>
+            <li>
+              <CheckCircle2 size={16} />
+              Request CMI source-owner review
+            </li>
+            <li>
+              <CheckCircle2 size={16} />
+              Export deck draft for feedback
+            </li>
+            <li>
+              <Clock3 size={16} className="pending-icon" />
+              Legal approval required for third-party ingestion
+            </li>
+          </ul>
+        </Panel>
+      </div>
+
+      <Panel title="Recent profile activity" description="Actions Alex has taken in the CCGS workspace">
+        <div className="activity-table">
+          {[
+            ["Approved opening narrative thesis", "Narrative Studio", "Today, 10:42 AM"],
+            ["Requested validation on GBP 150M sizing", "Opportunity Sizing", "Today, 9:18 AM"],
+            ["Attached historical UK CCGS benchmark", "Resource Library", "Yesterday"],
+            ["Shared feedback on CVD wording", "Deck Builder", "Yesterday"],
+          ].map(([action, area, time]) => (
+            <div className="activity-row" key={action}>
+              <span>{area}</span>
+              <strong>{action}</strong>
+              <small>{time}</small>
+            </div>
+          ))}
+        </div>
       </Panel>
     </>
   );
@@ -1205,24 +1521,53 @@ function SettingsPage() {
 export function App() {
   const [activePage, setActivePage] = useState<PageId>("command");
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [readNotificationIds, setReadNotificationIds] = useState<string[]>(
+    notifications.filter((notification) => !notification.unread).map((notification) => notification.id),
+  );
   const pageLabel = useMemo(() => navItems.find((item) => item.id === activePage)?.label ?? "Command Center", [activePage]);
+  const unreadCount = notifications.filter((notification) => !readNotificationIds.includes(notification.id)).length;
+
+  function openPage(page: PageId) {
+    setActivePage(page);
+    setNotificationOpen(false);
+    setProfileOpen(false);
+  }
+
+  function markNotificationRead(id: string) {
+    setReadNotificationIds((current) => (current.includes(id) ? current : [...current, id]));
+  }
+
+  function markAllNotificationsRead() {
+    setReadNotificationIds(notifications.map((notification) => notification.id));
+  }
 
   function renderPage() {
     switch (activePage) {
       case "agent":
-        return <AgentPage setActivePage={setActivePage} />;
+        return <AgentPage setActivePage={openPage} />;
       case "resources":
         return <ResourcesPage />;
       case "deck":
         return <DeckPage />;
+      case "history":
+        return <HistoricalPage />;
       case "notifications":
-        return <NotificationsPage />;
+        return (
+          <NotificationsPage
+            onMarkAllRead={markAllNotificationsRead}
+            onOpenItem={markNotificationRead}
+            readNotificationIds={readNotificationIds}
+          />
+        );
       case "validation":
         return <ValidationPage />;
+      case "profile":
+        return <ProfilePage />;
       case "settings":
         return <SettingsPage />;
       default:
-        return <CommandCenterPage setActivePage={setActivePage} />;
+        return <CommandCenterPage setActivePage={openPage} />;
     }
   }
 
@@ -1246,7 +1591,7 @@ export function App() {
               <button
                 className={`nav-item ${activePage === item.id ? "active" : ""}`}
                 key={item.id}
-                onClick={() => setActivePage(item.id)}
+                onClick={() => openPage(item.id)}
                 type="button"
               >
                 <Icon size={18} aria-hidden="true" />
@@ -1289,33 +1634,70 @@ export function App() {
             <div className="notification-wrap">
               <button
                 className="notification-button"
-                onClick={() => setNotificationOpen((value) => !value)}
+                onClick={() => {
+                  setNotificationOpen((value) => !value);
+                  setProfileOpen(false);
+                }}
                 type="button"
                 aria-label="Notifications"
               >
                 <Bell size={18} aria-hidden="true" />
-                <span>3</span>
+                {unreadCount > 0 ? <span>{unreadCount}</span> : null}
               </button>
               {notificationOpen ? (
                 <div className="notification-popover">
                   <div className="popover-header">
                     <strong>Notifications</strong>
-                    <button className="text-button" onClick={() => setActivePage("notifications")} type="button">
+                    <button className="text-button" onClick={() => openPage("notifications")} type="button">
                       Open center
                     </button>
                   </div>
-                  <NotificationList compact />
+                  <NotificationList compact onOpenItem={markNotificationRead} readNotificationIds={readNotificationIds} />
                 </div>
               ) : null}
             </div>
-            <button className="user-menu" type="button">
-              <span className="avatar">AK</span>
-              <span>
-                <strong>Alex Kumar</strong>
-                <small>Business lead</small>
-              </span>
-              <ChevronDown size={16} aria-hidden="true" />
-            </button>
+            <div className="profile-wrap">
+              <button
+                className="user-menu"
+                onClick={() => {
+                  setProfileOpen((value) => !value);
+                  setNotificationOpen(false);
+                }}
+                type="button"
+              >
+                <span className="avatar">AK</span>
+                <span>
+                  <strong>Alex Kumar</strong>
+                  <small>Business lead</small>
+                </span>
+                <ChevronDown size={16} aria-hidden="true" />
+              </button>
+              {profileOpen ? (
+                <div className="profile-popover">
+                  <div className="profile-popover-head">
+                    <span className="profile-avatar-large">AK</span>
+                    <div>
+                      <strong>Alex Kumar</strong>
+                      <p>Business lead - UK Deodorants</p>
+                    </div>
+                  </div>
+                  <div className="profile-menu-list">
+                    <button onClick={() => openPage("profile")} type="button">
+                      <UserRound size={16} aria-hidden="true" />
+                      View profile
+                    </button>
+                    <button onClick={() => openPage("settings")} type="button">
+                      <Settings size={16} aria-hidden="true" />
+                      Workspace settings
+                    </button>
+                    <button onClick={() => openPage("validation")} type="button">
+                      <ClipboardCheck size={16} aria-hidden="true" />
+                      My approvals
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+            </div>
           </div>
         </header>
 

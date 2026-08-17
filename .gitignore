@@ -6,4 +6,5 @@ vite.config.js
 vite.config.d.ts
 qa/
 qa-expanded/
+qa-fix/
 .DS_Store
