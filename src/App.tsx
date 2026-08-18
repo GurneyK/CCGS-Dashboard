@@ -287,72 +287,339 @@ const deckSlides = [
   { number: "08", title: "Appendix and Q&A", status: "In progress", resources: 7, owner: "CSP" },
 ];
 
-const historicalEntries = [
+const historicalCategories = [
   {
-    id: "hist-2025-deo-01",
-    title: "Grooming Rituals Are Becoming Self-Care Moments",
-    year: "2025",
     category: "Deodorants",
-    status: "Published",
-    cvd: "Freshness confidence",
-    signal: "Routine-led usage language increased across social and U&A studies.",
-    reuse: "Use as continuity proof for fragrance-led premiumisation.",
-    source: "Historical CCGS deck",
+    question: "What are the biggest growth opportunities in UK Deodorants?",
+    status: "Draft awaiting review",
+    statusTone: "warning",
+    confidence: "86%",
+    confidenceLabel: "High confidence",
+    growth: "+4.8%",
+    opportunitySize: "GBP 265M",
+    sourcesRead: "9 of 11 sources",
+    reviewOwner: "Finance + CMI",
+    summary:
+      "Fragrance, format, and efficacy signals point to a premiumisation story with enough source support for a business review draft.",
+    sources: [
+      { name: "NielsenIQ", status: "Connected", tone: "success", detail: "EPOS, customer, and pack-size movement" },
+      { name: "Meltwater", status: "Mapped", tone: "brand", detail: "Fragrance and freshness conversation shifts" },
+      { name: "Euromonitor", status: "Static file", tone: "neutral", detail: "Category and premium segment growth" },
+      { name: "Historical CCGS", status: "Connected", tone: "success", detail: "2024-2025 CVD and narrative patterns" },
+    ],
+    drafts: [
+      { section: "Growth thesis", status: "Draft awaiting review", tone: "warning", confidence: "88%" },
+      { section: "Opportunity sizing", status: "Finance check needed", tone: "warning", confidence: "74%" },
+      { section: "Source attribution", status: "Evidence linked", tone: "success", confidence: "91%" },
+    ],
+    opportunities: [
+      {
+        id: "deo-fragrance-premium",
+        title: "Fragrance-led premiumisation is reshaping UK Deodorants",
+        route: "Trade up",
+        status: "Draft awaiting review",
+        statusTone: "warning",
+        confidence: "88%",
+        confidenceLabel: "High confidence",
+        confidenceTone: "success",
+        sizing: "GBP 150M",
+        growth: "+12%",
+        penetration: "45%",
+        cvd: "Freshness confidence",
+        insight:
+          "Premium deodorants are growing faster than the base category while social conversation and innovation activity concentrate around fragrance experiences.",
+        evidence: [
+          "Premium segment growth is materially ahead of total deodorants.",
+          "Fragrance-related social conversation is up across recent listening extracts.",
+          "Historical CCGS outputs show self-care language recurring in the category.",
+        ],
+        recommendation:
+          "Anchor the deck around a fragrance-led trade-up narrative, then pair it with efficacy proof so premium claims still feel credible.",
+        draftSection: "Slides 01-03",
+        reviewOwner: "Alex Kumar",
+        nextStep: "Business lead to approve the headline before Finance signs off sizing.",
+        sourcesUsed: ["Euromonitor", "Meltwater", "Kantar", "Historical CCGS"],
+        historicalReuse: "2025 grooming rituals and 2024 efficacy claims",
+      },
+      {
+        id: "deo-value-multipack",
+        title: "Value multipack trade-in can defend everyday affordability",
+        route: "Trade in",
+        status: "Needs source-owner review",
+        statusTone: "info",
+        confidence: "62%",
+        confidenceLabel: "Medium confidence",
+        confidenceTone: "info",
+        sizing: "GBP 60M",
+        growth: "+6%",
+        penetration: "58%",
+        cvd: "Everyday affordability",
+        insight:
+          "Multipack and larger-format shoppers show value pressure, but the agent needs stronger customer-level proof before this becomes a lead recommendation.",
+        evidence: [
+          "NielsenIQ points to pack-size movement among larger households.",
+          "Kantar panel notes value seeking in repeat purchase missions.",
+          "Prior-year CCGS warns that price framing should not dilute efficacy claims.",
+        ],
+        recommendation:
+          "Position multipacks as a defensive growth platform while separating it from the premium fragrance story.",
+        draftSection: "Slide 05",
+        reviewOwner: "CMI source owner",
+        nextStep: "Confirm customer-level EPOS view and rerun sizing confidence.",
+        sourcesUsed: ["NielsenIQ", "Kantar", "Historical CCGS"],
+        historicalReuse: "2024 long-lasting protection benchmark",
+      },
+      {
+        id: "deo-sensitive-care",
+        title: "Sensitive freshness opens a credible care-led flank",
+        route: "Trade across",
+        status: "Draft ready",
+        statusTone: "success",
+        confidence: "79%",
+        confidenceLabel: "Good confidence",
+        confidenceTone: "success",
+        sizing: "GBP 55M",
+        growth: "+8%",
+        penetration: "31%",
+        cvd: "Skin comfort and confidence",
+        insight:
+          "Sensitive-skin reassurance is a smaller but coherent opportunity when paired with freshness language and dermatologist-style proof points.",
+        evidence: [
+          "Sensitive claims are gaining search and social visibility.",
+          "Skin Cleansing historical outputs show fragrance-free trust patterns.",
+          "Consumer need states connect comfort with confidence in daily use.",
+        ],
+        recommendation:
+          "Use this as a secondary growth platform for consumers who reject strong fragrance but still want freshness performance.",
+        draftSection: "Slide 06",
+        reviewOwner: "Brand + CMI",
+        nextStep: "Add one approved product or shelf visual before deck export.",
+        sourcesUsed: ["Meltwater", "H&A Studies", "Skin Cleansing CCGS"],
+        historicalReuse: "2024 sensitive skin claims pattern",
+      },
+    ],
   },
   {
-    id: "hist-2025-scl-01",
-    title: "Multi-Step Routines Are Driving Basket Expansion",
-    year: "2025",
     category: "Skin Cleansing",
-    status: "Published",
-    cvd: "Routine building",
-    signal: "Shoppers bundled cleanse, treat, and fragrance-led finish products.",
-    reuse: "Translate the routine ladder into deodorants trade-across logic.",
-    source: "Skin Cleansing CCGS",
+    question: "Where should Skin Cleansing play for routine-led category growth?",
+    status: "Evidence synthesis active",
+    statusTone: "brand",
+    confidence: "81%",
+    confidenceLabel: "High confidence",
+    growth: "+5.6%",
+    opportunitySize: "GBP 210M",
+    sourcesRead: "8 of 10 sources",
+    reviewOwner: "CMI + Brand",
+    summary:
+      "Routine building, barrier care, and value refill signals create a clear way to frame Skin Cleansing as a higher-frequency system.",
+    sources: [
+      { name: "H&A Studies", status: "Mapped", tone: "brand", detail: "Need states and occasion motivations" },
+      { name: "Kantar", status: "Mapped", tone: "brand", detail: "Basket and trip behavior" },
+      { name: "Meltwater", status: "Static file", tone: "neutral", detail: "Barrier care and sensitivity themes" },
+      { name: "Historical CCGS", status: "Connected", tone: "success", detail: "Routine ladder examples" },
+    ],
+    drafts: [
+      { section: "Routine opportunity map", status: "Draft ready", tone: "success", confidence: "84%" },
+      { section: "Barrier care CVD", status: "CMI review open", tone: "warning", confidence: "78%" },
+      { section: "Image brief", status: "Creative queued", tone: "brand", confidence: "69%" },
+    ],
+    opportunities: [
+      {
+        id: "skin-routine-bundles",
+        title: "Routine bundles can expand baskets beyond single cleanse missions",
+        route: "Trade across",
+        status: "Draft ready",
+        statusTone: "success",
+        confidence: "84%",
+        confidenceLabel: "High confidence",
+        confidenceTone: "success",
+        sizing: "GBP 95M",
+        growth: "+10%",
+        penetration: "39%",
+        cvd: "Routine building",
+        insight:
+          "Consumers are linking cleansing to prep, treatment, and finishing steps, giving the category permission to move from product replacement to routine design.",
+        evidence: [
+          "Kantar basket analysis shows higher attach rates when routine language is present.",
+          "Historical Skin Cleansing CCGS used a routine ladder that remains relevant.",
+          "H&A studies connect self-care occasions with multi-step usage.",
+        ],
+        recommendation:
+          "Show a routine ladder and identify the highest-value attach points for body wash, exfoliation, and fragrance-led finishing.",
+        draftSection: "Slides 02-04",
+        reviewOwner: "Brand strategy",
+        nextStep: "Approve the routine ladder labels and attach relevant product examples.",
+        sourcesUsed: ["Kantar", "H&A Studies", "Historical CCGS"],
+        historicalReuse: "2025 multi-step routines pattern",
+      },
+      {
+        id: "skin-barrier-care",
+        title: "Barrier-care cleansing can premiumise sensitive skin claims",
+        route: "Trade up",
+        status: "CMI review open",
+        statusTone: "warning",
+        confidence: "78%",
+        confidenceLabel: "Good confidence",
+        confidenceTone: "success",
+        sizing: "GBP 80M",
+        growth: "+9%",
+        penetration: "34%",
+        cvd: "Skin barrier reassurance",
+        insight:
+          "The opportunity is to make sensitive skin care feel proactive and premium, not just a compromise for people avoiding fragrance.",
+        evidence: [
+          "Meltwater extracts show barrier language becoming more mainstream.",
+          "H&A need states connect comfort, confidence, and visible skin health.",
+          "Prior-year sensitive skin outputs reduce risk in the CVD framing.",
+        ],
+        recommendation:
+          "Draft the CVD around barrier reassurance with a supporting proof hierarchy for claims, credentials, and usage occasions.",
+        draftSection: "Slide 05",
+        reviewOwner: "CMI",
+        nextStep: "CMI to validate the barrier-care wording against source language.",
+        sourcesUsed: ["Meltwater", "H&A Studies", "Historical CCGS"],
+        historicalReuse: "2024 fragrance-free sensitive skin pattern",
+      },
+      {
+        id: "skin-refill-value",
+        title: "Refill and larger formats can protect value without flattening brand equity",
+        route: "Trade in",
+        status: "Sizing pending",
+        statusTone: "warning",
+        confidence: "65%",
+        confidenceLabel: "Medium confidence",
+        confidenceTone: "info",
+        sizing: "GBP 35M",
+        growth: "+4%",
+        penetration: "52%",
+        cvd: "Value with less waste",
+        insight:
+          "Refill and larger-format propositions can answer value pressure while also linking to sustainability cues already present in adjacent categories.",
+        evidence: [
+          "Pack-size movement suggests shoppers are open to value-led formats.",
+          "Oral Care historical outputs show packaging credentials moving mainstream.",
+          "The agent still needs a stronger read on margin and channel mix.",
+        ],
+        recommendation:
+          "Keep as a supporting opportunity until Finance confirms whether the format economics justify a deck recommendation.",
+        draftSection: "Appendix",
+        reviewOwner: "Finance",
+        nextStep: "Add margin guardrail and retail-channel assumptions.",
+        sourcesUsed: ["Kantar", "Euromonitor", "Oral Care CCGS"],
+        historicalReuse: "2024 sustainable packaging pattern",
+      },
+    ],
   },
   {
-    id: "hist-2025-oc-01",
-    title: "Whitening Remains the Default Premium Entry Point",
-    year: "2025",
     category: "Oral Care",
-    status: "Published",
-    cvd: "Visible efficacy",
-    signal: "Premium entry relied on immediately understood consumer benefits.",
-    reuse: "Keep fragrance premium cues simple and shopper-legible.",
-    source: "Oral Care CCGS",
-  },
-  {
-    id: "hist-2024-deo-01",
-    title: "Antiperspirant Efficacy Claims Anchor Trust",
-    year: "2024",
-    category: "Deodorants",
-    status: "Archived",
-    cvd: "Long-lasting protection",
-    signal: "Functional reassurance remained the base permission to trade up.",
-    reuse: "Pair fragrance trade-up with durable freshness proof.",
-    source: "Historical CCGS archive",
-  },
-  {
-    id: "hist-2024-scl-01",
-    title: "Fragrance-Free Claims Gain Ground in Sensitive Skin",
-    year: "2024",
-    category: "Skin Cleansing",
-    status: "Archived",
-    cvd: "Sensitive reassurance",
-    signal: "Low-irritation and simplicity claims helped premium trust.",
-    reuse: "Flag a counter-signal for sensitive-skin shoppers.",
-    source: "CMI archive",
-  },
-  {
-    id: "hist-2024-oc-01",
-    title: "Sustainability Packaging Enters Mainstream Consideration",
-    year: "2024",
-    category: "Oral Care",
-    status: "Archived",
-    cvd: "Sustainable value",
-    signal: "Packaging credentials moved from niche to hygiene factor.",
-    reuse: "Add pack sustainability as a secondary evidence scan.",
-    source: "CSP archive",
+    question: "Which Oral Care growth spaces can balance efficacy, premium, and access?",
+    status: "Draft awaiting review",
+    statusTone: "warning",
+    confidence: "83%",
+    confidenceLabel: "High confidence",
+    growth: "+4.2%",
+    opportunitySize: "GBP 240M",
+    sourcesRead: "7 of 9 sources",
+    reviewOwner: "Business lead + CMI",
+    summary:
+      "Whitening, gum health, and family access give the agent three distinct growth routes with clear CVD and deck implications.",
+    sources: [
+      { name: "Euromonitor", status: "Mapped", tone: "brand", detail: "Premium and therapeutic segment sizing" },
+      { name: "NielsenIQ", status: "Connected", tone: "success", detail: "Retail sales and pack architecture" },
+      { name: "Mintel", status: "Static file", tone: "neutral", detail: "Claims and innovation themes" },
+      { name: "Historical CCGS", status: "Connected", tone: "success", detail: "Whitening and packaging continuity" },
+    ],
+    drafts: [
+      { section: "Premium efficacy story", status: "Draft awaiting review", tone: "warning", confidence: "87%" },
+      { section: "Gum health proof", status: "Evidence linked", tone: "success", confidence: "82%" },
+      { section: "Family value sizing", status: "Owner needed", tone: "warning", confidence: "64%" },
+    ],
+    opportunities: [
+      {
+        id: "oral-visible-whitening",
+        title: "Visible whitening remains the easiest premium entry point",
+        route: "Trade up",
+        status: "Draft awaiting review",
+        statusTone: "warning",
+        confidence: "87%",
+        confidenceLabel: "High confidence",
+        confidenceTone: "success",
+        sizing: "GBP 120M",
+        growth: "+11%",
+        penetration: "42%",
+        cvd: "Visible efficacy",
+        insight:
+          "Whitening continues to translate premium value quickly because shoppers understand the benefit and can connect it to visible outcomes.",
+        evidence: [
+          "Historical Oral Care CCGS identifies whitening as the default premium entry.",
+          "Euromonitor premium segment read supports the trade-up direction.",
+          "NielsenIQ pack movement shows continued interest in premium benefit tiers.",
+        ],
+        recommendation:
+          "Lead with visible efficacy, then support with proof points that make premium claims feel measurable and easy to compare.",
+        draftSection: "Slides 01-03",
+        reviewOwner: "Business lead",
+        nextStep: "Review headline and choose whether whitening or gum health leads the deck.",
+        sourcesUsed: ["Euromonitor", "NielsenIQ", "Historical CCGS"],
+        historicalReuse: "2025 whitening entry-point pattern",
+      },
+      {
+        id: "oral-gum-health",
+        title: "Gum health can move therapeutic care into everyday prevention",
+        route: "Trade across",
+        status: "Evidence linked",
+        statusTone: "success",
+        confidence: "82%",
+        confidenceLabel: "High confidence",
+        confidenceTone: "success",
+        sizing: "GBP 75M",
+        growth: "+8%",
+        penetration: "29%",
+        cvd: "Preventive confidence",
+        insight:
+          "There is room to make gum health more routine and less problem-led by connecting prevention to daily confidence and whole-mouth health.",
+        evidence: [
+          "Mintel claims review highlights prevention and gum-health language.",
+          "H&A motivations show consumers respond to confidence and reassurance.",
+          "Prior-year efficacy framing provides a credible proof structure.",
+        ],
+        recommendation:
+          "Position gum health as a daily prevention platform and use claims hierarchy to avoid sounding too clinical.",
+        draftSection: "Slide 04",
+        reviewOwner: "CMI",
+        nextStep: "Add clinical claim guardrails and confirm approved language.",
+        sourcesUsed: ["Mintel", "H&A Studies", "Historical CCGS"],
+        historicalReuse: "2024 efficacy proof hierarchy",
+      },
+      {
+        id: "oral-family-access",
+        title: "Family value packs can widen access while preserving expert trust",
+        route: "Trade in",
+        status: "Owner needed",
+        statusTone: "warning",
+        confidence: "64%",
+        confidenceLabel: "Medium confidence",
+        confidenceTone: "info",
+        sizing: "GBP 45M",
+        growth: "+5%",
+        penetration: "61%",
+        cvd: "Family confidence",
+        insight:
+          "Family-oriented formats can answer affordability pressure, but the recommendation needs customer-level validation before it is more than a watch item.",
+        evidence: [
+          "NielsenIQ suggests continued demand for family and larger formats.",
+          "Value pressure appears in shopper panel commentary.",
+          "The agent still needs pack economics and retailer prioritization.",
+        ],
+        recommendation:
+          "Keep as a watch-list growth route until the source owner confirms retailer and margin assumptions.",
+        draftSection: "Appendix",
+        reviewOwner: "Commercial owner",
+        nextStep: "Assign a commercial owner and add pack economics.",
+        sourcesUsed: ["NielsenIQ", "Kantar", "Finance model"],
+        historicalReuse: "2024 sustainable value pattern",
+      },
+    ],
   },
 ];
 
@@ -1141,103 +1408,272 @@ function DeckPage() {
 }
 
 function HistoricalPage() {
-  const [activeCategory, setActiveCategory] = useState("All categories");
+  const [activeCategory, setActiveCategory] = useState(historicalCategories[0].category);
   const [query, setQuery] = useState("");
-  const [selectedId, setSelectedId] = useState(historicalEntries[0].id);
-  const categories = ["All categories", "Deodorants", "Skin Cleansing", "Oral Care"];
-  const filteredEntries = historicalEntries.filter((entry) => {
-    const matchesCategory = activeCategory === "All categories" || entry.category === activeCategory;
-    const searchable = `${entry.title} ${entry.category} ${entry.year} ${entry.cvd}`.toLowerCase();
-    return matchesCategory && searchable.includes(query.toLowerCase());
+  const [selectedId, setSelectedId] = useState(historicalCategories[0].opportunities[0].id);
+  const currentCategory = historicalCategories.find((item) => item.category === activeCategory) ?? historicalCategories[0];
+  const filteredOpportunities = currentCategory.opportunities.filter((opportunity) => {
+    const searchable = [
+      opportunity.title,
+      opportunity.route,
+      opportunity.status,
+      opportunity.cvd,
+      opportunity.insight,
+      opportunity.evidence.join(" "),
+      opportunity.sourcesUsed.join(" "),
+    ]
+      .join(" ")
+      .toLowerCase();
+    return searchable.includes(query.toLowerCase());
   });
-  const selectedEntry = historicalEntries.find((entry) => entry.id === selectedId) ?? historicalEntries[0];
+  const selectedOpportunity =
+    currentCategory.opportunities.find((opportunity) => opportunity.id === selectedId) ??
+    filteredOpportunities[0] ??
+    currentCategory.opportunities[0];
+
+  function selectCategory(category: string) {
+    const nextCategory = historicalCategories.find((item) => item.category === category) ?? historicalCategories[0];
+    setActiveCategory(nextCategory.category);
+    setSelectedId(nextCategory.opportunities[0].id);
+    setQuery("");
+  }
 
   return (
     <section className="history-page">
-      <div className="history-header">
+      <section className="page-heading history-heading">
         <div>
-          <Badge tone="brand">Continuity and pattern recognition</Badge>
+          <Badge tone={currentCategory.statusTone}>{currentCategory.status}</Badge>
           <h1>Historical CCGS</h1>
           <p>
-            Prior-year category growth strategy outputs are scanned for recurring CVDs, shopper shifts,
-            evidence patterns, and narrative continuity before the agent drafts a new deck.
+            Category strategy drafts built from prior-year CCGS patterns, source evidence, opportunity sizing,
+            confidence, and review status across UK Personal Care.
           </p>
         </div>
-        <div className="history-search">
-          <Search size={17} aria-hidden="true" />
-          <input
-            aria-label="Search historical CCGS"
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search headlines..."
-            value={query}
-          />
+        <div className="history-heading-actions">
+          <div className="history-search">
+            <Search size={17} aria-hidden="true" />
+            <input
+              aria-label="Search historical CCGS opportunities"
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search opportunities, sources, CVDs"
+              value={query}
+            />
+          </div>
+          <button className="button secondary" type="button">
+            <Archive size={16} aria-hidden="true" />
+            Benchmark library
+          </button>
         </div>
-      </div>
+      </section>
 
       <div className="history-tabs" aria-label="Historical CCGS category filter">
-        {categories.map((category) => (
+        {historicalCategories.map((category) => (
           <button
-            className={activeCategory === category ? "active" : ""}
-            key={category}
-            onClick={() => setActiveCategory(category)}
+            className={activeCategory === category.category ? "active" : ""}
+            key={category.category}
+            onClick={() => selectCategory(category.category)}
             type="button"
           >
-            {category}
+            {category.category}
           </button>
         ))}
       </div>
 
-      <div className="history-layout">
-        <div className="history-list">
-          {filteredEntries.map((entry) => (
-            <button
-              className={`history-row ${selectedEntry.id === entry.id ? "selected" : ""}`}
-              key={entry.id}
-              onClick={() => setSelectedId(entry.id)}
-              type="button"
-            >
-              <Badge tone={entry.status === "Published" ? "success" : "neutral"}>{entry.status}</Badge>
-              <span>
-                <strong>{entry.title}</strong>
-                <small>{entry.year} - {entry.category}</small>
-              </span>
-              <ChevronDown size={17} aria-hidden="true" />
-            </button>
-          ))}
+      <section className="history-stat-grid" aria-label={`${currentCategory.category} strategy snapshot`}>
+        <div>
+          <span>Opportunity size</span>
+          <strong>{currentCategory.opportunitySize}</strong>
+          <small>{currentCategory.question}</small>
         </div>
+        <div>
+          <span>Confidence</span>
+          <strong>{currentCategory.confidence}</strong>
+          <small>{currentCategory.confidenceLabel}</small>
+        </div>
+        <div>
+          <span>Growth signal</span>
+          <strong>{currentCategory.growth}</strong>
+          <small>Latest category read</small>
+        </div>
+        <div>
+          <span>Sources scanned</span>
+          <strong>{currentCategory.sourcesRead}</strong>
+          <small>Review owner: {currentCategory.reviewOwner}</small>
+        </div>
+      </section>
 
-        <aside className="history-detail">
-          <div className="history-detail-card">
-            <Badge tone={selectedEntry.status === "Published" ? "success" : "neutral"}>{selectedEntry.status}</Badge>
-            <h2>{selectedEntry.title}</h2>
-            <dl>
-              <div>
-                <dt>Category</dt>
-                <dd>{selectedEntry.category}</dd>
-              </div>
-              <div>
-                <dt>Primary CVD</dt>
-                <dd>{selectedEntry.cvd}</dd>
-              </div>
-              <div>
-                <dt>Reusable pattern</dt>
-                <dd>{selectedEntry.reuse}</dd>
-              </div>
-            </dl>
-            <div className="history-signal">
-              <LineChart size={18} aria-hidden="true" />
-              <p>{selectedEntry.signal}</p>
+      <div className="history-layout">
+        <aside className="history-list-card">
+          <div className="history-list-heading">
+            <div>
+              <h2>Growth opportunities</h2>
+              <p>{currentCategory.summary}</p>
             </div>
-            <div className="history-source">
-              <FileSearch size={17} aria-hidden="true" />
-              <span>{selectedEntry.source}</span>
-            </div>
+            <Badge tone="brand">{currentCategory.opportunities.length} routes</Badge>
+          </div>
+
+          <div className="history-list">
+            {filteredOpportunities.map((opportunity) => (
+              <button
+                className={`history-row ${selectedOpportunity.id === opportunity.id ? "selected" : ""}`}
+                key={opportunity.id}
+                onClick={() => setSelectedId(opportunity.id)}
+                type="button"
+              >
+                <div className="history-row-topline">
+                  <Badge tone="brand">{opportunity.route}</Badge>
+                  <Badge tone={opportunity.statusTone}>{opportunity.status}</Badge>
+                </div>
+                <strong>{opportunity.title}</strong>
+                <span>{opportunity.cvd}</span>
+                <div className="history-row-metrics">
+                  <small>{opportunity.sizing}</small>
+                  <small>{opportunity.confidence} confidence</small>
+                </div>
+              </button>
+            ))}
+
+            {filteredOpportunities.length === 0 ? (
+              <div className="empty-state">
+                <FileSearch size={18} aria-hidden="true" />
+                <strong>No matching opportunities</strong>
+                <p>Try a source, CVD, route, or review status.</p>
+              </div>
+            ) : null}
           </div>
         </aside>
+
+        <article className="history-detail-card">
+          <div className="history-detail-topline">
+            <Badge tone="brand">{currentCategory.category}</Badge>
+            <Badge tone={selectedOpportunity.statusTone}>{selectedOpportunity.status}</Badge>
+          </div>
+          <div className="history-detail-title">
+            <div>
+              <span>{selectedOpportunity.route} growth opportunity</span>
+              <h2>{selectedOpportunity.title}</h2>
+            </div>
+            <Badge tone={selectedOpportunity.confidenceTone}>{selectedOpportunity.confidenceLabel}</Badge>
+          </div>
+
+          <p className="history-detail-summary">{selectedOpportunity.insight}</p>
+
+          <div className="history-detail-metrics">
+            <div>
+              <BarChart3 size={17} aria-hidden="true" />
+              <span>Opportunity</span>
+              <strong>{selectedOpportunity.sizing}</strong>
+            </div>
+            <div>
+              <LineChart size={17} aria-hidden="true" />
+              <span>Growth</span>
+              <strong>{selectedOpportunity.growth}</strong>
+            </div>
+            <div>
+              <Gauge size={17} aria-hidden="true" />
+              <span>Confidence</span>
+              <strong>{selectedOpportunity.confidence}</strong>
+            </div>
+            <div>
+              <CircleDot size={17} aria-hidden="true" />
+              <span>Penetration</span>
+              <strong>{selectedOpportunity.penetration}</strong>
+            </div>
+          </div>
+
+          <div className="history-section-grid">
+            <section>
+              <h3>
+                <Sparkles size={16} aria-hidden="true" />
+                Strategic implication
+              </h3>
+              <p>{selectedOpportunity.recommendation}</p>
+            </section>
+            <section>
+              <h3>
+                <ClipboardCheck size={16} aria-hidden="true" />
+                Draft review
+              </h3>
+              <dl className="history-review-list">
+                <div>
+                  <dt>Deck section</dt>
+                  <dd>{selectedOpportunity.draftSection}</dd>
+                </div>
+                <div>
+                  <dt>Owner</dt>
+                  <dd>{selectedOpportunity.reviewOwner}</dd>
+                </div>
+                <div>
+                  <dt>Next step</dt>
+                  <dd>{selectedOpportunity.nextStep}</dd>
+                </div>
+              </dl>
+            </section>
+          </div>
+
+          <section className="history-evidence">
+            <h3>
+              <BookOpenCheck size={16} aria-hidden="true" />
+              Supporting data points
+            </h3>
+            <ul>
+              {selectedOpportunity.evidence.map((evidence) => (
+                <li key={evidence}>
+                  <CheckCircle2 size={16} aria-hidden="true" />
+                  {evidence}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <div className="history-source-row" aria-label="Sources used">
+            {selectedOpportunity.sourcesUsed.map((source) => (
+              <Badge key={source} tone="neutral">
+                {source}
+              </Badge>
+            ))}
+          </div>
+
+          <div className="history-reuse-note">
+            <FileSearch size={17} aria-hidden="true" />
+            <span>Historical reuse: {selectedOpportunity.historicalReuse}</span>
+          </div>
+        </article>
+      </div>
+
+      <div className="history-lower-grid">
+        <Panel title="Source coverage" description={`Evidence readiness for ${currentCategory.category}`}>
+          <div className="history-source-grid">
+            {currentCategory.sources.map((source) => (
+              <div key={source.name}>
+                <div>
+                  <Database size={17} aria-hidden="true" />
+                  <Badge tone={source.tone}>{source.status}</Badge>
+                </div>
+                <strong>{source.name}</strong>
+                <p>{source.detail}</p>
+              </div>
+            ))}
+          </div>
+        </Panel>
+
+        <Panel title="Draft review queue" description="What is ready, waiting, or blocked before deck export">
+          <div className="history-draft-list">
+            {currentCategory.drafts.map((draft) => (
+              <div key={draft.section}>
+                <div>
+                  <strong>{draft.section}</strong>
+                  <span>{draft.confidence} confidence</span>
+                </div>
+                <Badge tone={draft.tone}>{draft.status}</Badge>
+              </div>
+            ))}
+          </div>
+        </Panel>
       </div>
 
       <footer className="history-footer">
-        CCGS Copilot mock. Figures shown are illustrative; production values are computed from live source data once connected.
+        Mock data only. Sizing, growth, penetration, and confidence levels are illustrative until connected to live source data.
       </footer>
     </section>
   );
@@ -1522,16 +1958,19 @@ export function App() {
   const [activePage, setActivePage] = useState<PageId>("command");
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [readNotificationIds, setReadNotificationIds] = useState<string[]>(
     notifications.filter((notification) => !notification.unread).map((notification) => notification.id),
   );
   const pageLabel = useMemo(() => navItems.find((item) => item.id === activePage)?.label ?? "Command Center", [activePage]);
+  const pageContext = activePage === "history" ? "UK Personal Care PoC" : "UK Deodorants PoC";
   const unreadCount = notifications.filter((notification) => !readNotificationIds.includes(notification.id)).length;
 
   function openPage(page: PageId) {
     setActivePage(page);
     setNotificationOpen(false);
     setProfileOpen(false);
+    setMobileNavOpen(false);
   }
 
   function markNotificationRead(id: string) {
@@ -1573,7 +2012,7 @@ export function App() {
 
   return (
     <div className="app-shell">
-      <aside className="sidebar">
+      <aside className={`sidebar ${mobileNavOpen ? "mobile-open" : ""}`}>
         <div className="brand-lockup">
           <div className="brand-mark">
             <Sparkles size={22} aria-hidden="true" />
@@ -1613,16 +2052,28 @@ export function App() {
           <Badge tone="warning">Compliance gate</Badge>
         </div>
       </aside>
+      <button
+        className={`mobile-nav-backdrop ${mobileNavOpen ? "show" : ""}`}
+        onClick={() => setMobileNavOpen(false)}
+        type="button"
+        aria-label="Close navigation"
+      />
 
       <div className="workspace">
         <header className="topbar">
           <div className="topbar-title">
-            <button className="icon-button mobile-menu" type="button" aria-label="Open navigation">
+            <button
+              className="icon-button mobile-menu"
+              onClick={() => setMobileNavOpen(true)}
+              type="button"
+              aria-label="Open navigation"
+              aria-expanded={mobileNavOpen}
+            >
               <Menu size={18} aria-hidden="true" />
             </button>
             <div>
               <p>Consumer Category Growth Strategy</p>
-              <strong>{pageLabel} - UK Deodorants PoC</strong>
+              <strong>{pageLabel} - {pageContext}</strong>
             </div>
           </div>
           <div className="topbar-search">
