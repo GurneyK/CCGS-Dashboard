@@ -70,43 +70,6 @@ const sources = [
   { name: "Historical CCGS", type: "Internal", owner: "CSP", access: "Document library", status: "Connected", coverage: "Prior CVDs" },
 ];
 
-const signals = [
-  {
-    label: "Premium segment growth",
-    value: "+12%",
-    source: "Euromonitor",
-    note: "Premium deodorants are outpacing category growth.",
-    tone: "success",
-  },
-  {
-    label: "Fragrance conversations",
-    value: "+20%",
-    source: "Meltwater",
-    note: "Fragrance-led language is rising in social discussion.",
-    tone: "brand",
-  },
-  {
-    label: "Target penetration",
-    value: "45%",
-    source: "Kantar",
-    note: "Headroom remains with target consumer segments.",
-    tone: "info",
-  },
-  {
-    label: "Addressable opportunity",
-    value: "GBP 150M",
-    source: "HC model",
-    note: "Sizing uses the trade in, trade up, trade across frame.",
-    tone: "warning",
-  },
-] satisfies Array<{ label: string; value: string; source: string; note: string; tone: Tone }>;
-
-const sizing = [
-  { label: "Trade up", value: "GBP 86M", percent: 57 },
-  { label: "Trade across", value: "GBP 41M", percent: 27 },
-  { label: "Trade in", value: "GBP 23M", percent: 16 },
-];
-
 const questions = [
   {
     id: "01",
@@ -684,6 +647,13 @@ function MetricCard({ icon: Icon, label, value, meta }: { icon: typeof Home; lab
   );
 }
 
+type StrategyCategory = (typeof historicalCategories)[number];
+type StrategyOpportunity = StrategyCategory["opportunities"][number];
+
+function numericSize(value: string) {
+  return Number(value.replace(/[^0-9.]/g, "")) || 0;
+}
+
 function SourceTable() {
   return (
     <div className="table-shell">
@@ -736,7 +706,21 @@ function WorkflowStrip() {
   );
 }
 
-function CommandCenterPage({ setActivePage }: { setActivePage: (page: PageId) => void }) {
+function CommandCenterPage({
+  activeCategory,
+  setActiveCategory,
+  setActivePage,
+}: {
+  activeCategory: string;
+  setActiveCategory: (category: string) => void;
+  setActivePage: (page: PageId) => void;
+}) {
+  const currentCategory = historicalCategories.find((item) => item.category === activeCategory) ?? historicalCategories[0];
+  const leadOpportunity = currentCategory.opportunities[0];
+  const highConfidenceRoutes = currentCategory.opportunities.filter((opportunity) => numericSize(opportunity.confidence) >= 80).length;
+  const connectedSources = currentCategory.sources.filter((source) => source.status === "Connected").length;
+  const openReviews = currentCategory.drafts.filter((draft) => draft.tone !== "success").length;
+
   return (
     <>
       <section className="hero-band">
@@ -762,32 +746,84 @@ function CommandCenterPage({ setActivePage }: { setActivePage: (page: PageId) =>
       </section>
 
       <section className="metric-grid" aria-label="Workspace metrics">
-        <MetricCard icon={Database} label="Sources connected" value="9" meta="6 mapped, 3 in review" />
-        <MetricCard icon={Layers3} label="Signals linked" value="18" meta="4 high-confidence themes" />
-        <MetricCard icon={FileArchive} label="Deck resources" value="24" meta="17 ready, 7 in review" />
-        <MetricCard icon={BarChart3} label="Opportunity sizing" value="GBP 150M" meta="Market-level model" />
+        <MetricCard
+          icon={Database}
+          label="Sources scanned"
+          value={currentCategory.sourcesRead}
+          meta={`${connectedSources} connected, ${currentCategory.sources.length - connectedSources} mapped or static`}
+        />
+        <MetricCard
+          icon={Layers3}
+          label="Signals linked"
+          value={`${currentCategory.opportunities.length * 3}`}
+          meta={`${highConfidenceRoutes} high-confidence growth routes`}
+        />
+        <MetricCard
+          icon={FileArchive}
+          label="Deck resources"
+          value={`${currentCategory.drafts.length + currentCategory.sources.length + currentCategory.opportunities.length}`}
+          meta={`${currentCategory.drafts.length} draft sections, ${openReviews} review items`}
+        />
+        <MetricCard
+          icon={BarChart3}
+          label="Opportunity sizing"
+          value={currentCategory.opportunitySize}
+          meta={`${leadOpportunity.route} lead route`}
+        />
       </section>
 
       <WorkflowStrip />
 
       <div className="main-grid">
         <div className="primary-column">
-          <Panel title="Agent brief" description="Business question and run configuration" actions={<Badge tone="success">Ready for synthesis</Badge>}>
+          <Panel
+            title="Agent brief"
+            description="Business question and run configuration"
+            actions={<Badge tone={currentCategory.statusTone}>{currentCategory.status}</Badge>}
+          >
             <div className="brief-grid">
               <div className="question-card">
                 <label>Business question</label>
-                <p>What are the biggest growth opportunities in UK Deodorants?</p>
+                <p>{currentCategory.question}</p>
+                <div className="question-meta-row">
+                  <Badge tone={leadOpportunity.confidenceTone}>{leadOpportunity.confidence} confidence</Badge>
+                  <Badge tone="neutral">{currentCategory.opportunitySize} modeled opportunity</Badge>
+                </div>
               </div>
               <div className="brief-controls">
-                {["United Kingdom", "Deodorants", "Slide-ready narrative"].map((item, index) => (
-                  <div key={item}>
-                    <label>{index === 0 ? "Market" : index === 1 ? "Category" : "Output format"}</label>
-                    <button className="select-button" type="button">
-                      {item}
-                      <ChevronDown size={16} aria-hidden="true" />
-                    </button>
+                <div>
+                  <label htmlFor="brief-market">Market</label>
+                  <div className="select-field">
+                    <select id="brief-market" value="United Kingdom" onChange={() => undefined}>
+                      <option>United Kingdom</option>
+                    </select>
+                    <ChevronDown size={16} aria-hidden="true" />
                   </div>
-                ))}
+                </div>
+                <div>
+                  <label htmlFor="brief-category">Category</label>
+                  <div className="select-field">
+                    <select
+                      id="brief-category"
+                      onChange={(event) => setActiveCategory(event.target.value)}
+                      value={currentCategory.category}
+                    >
+                      {historicalCategories.map((category) => (
+                        <option key={category.category}>{category.category}</option>
+                      ))}
+                    </select>
+                    <ChevronDown size={16} aria-hidden="true" />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="brief-output">Output format</label>
+                  <div className="select-field">
+                    <select id="brief-output" value="Slide-ready narrative" onChange={() => undefined}>
+                      <option>Slide-ready narrative</option>
+                    </select>
+                    <ChevronDown size={16} aria-hidden="true" />
+                  </div>
+                </div>
               </div>
             </div>
           </Panel>
@@ -840,15 +876,15 @@ function CommandCenterPage({ setActivePage }: { setActivePage: (page: PageId) =>
           </Panel>
 
           <Panel title="Signal synthesis" description="Signals connected across source systems">
-            <SignalSynthesis />
+            <SignalSynthesis strategy={currentCategory} />
           </Panel>
 
           <div className="split-grid">
-            <OpportunitySizingPanel />
-            <CvdPanel />
+            <OpportunitySizingPanel strategy={currentCategory} />
+            <CvdPanel opportunity={leadOpportunity} />
           </div>
 
-          <NarrativePanel setActivePage={setActivePage} />
+          <NarrativePanel opportunity={leadOpportunity} setActivePage={setActivePage} />
           <ValidationPanel compact />
         </div>
 
@@ -858,18 +894,18 @@ function CommandCenterPage({ setActivePage }: { setActivePage: (page: PageId) =>
   );
 }
 
-function SignalSynthesis() {
+function SignalSynthesis({ strategy }: { strategy: StrategyCategory }) {
   return (
     <>
       <div className="signal-grid">
-        {signals.map((signal) => (
-          <article className={`signal-card ${signal.tone}`} key={signal.label}>
+        {strategy.opportunities.map((opportunity) => (
+          <article className={`signal-card ${opportunity.confidenceTone}`} key={opportunity.id}>
             <div>
-              <span>{signal.label}</span>
-              <strong>{signal.value}</strong>
+              <span>{opportunity.cvd}</span>
+              <strong>{opportunity.growth}</strong>
             </div>
-            <p>{signal.note}</p>
-            <Badge tone={signal.tone}>{signal.source}</Badge>
+            <p>{opportunity.insight}</p>
+            <Badge tone={opportunity.confidenceTone}>{opportunity.sourcesUsed[0]}</Badge>
           </article>
         ))}
       </div>
@@ -893,65 +929,71 @@ function SignalSynthesis() {
   );
 }
 
-function OpportunitySizingPanel() {
+function OpportunitySizingPanel({ strategy }: { strategy: StrategyCategory }) {
+  const totalOpportunity = strategy.opportunities.reduce((total, item) => total + numericSize(item.sizing), 0);
+
   return (
-    <Panel title="Opportunity sizing" description="Market sizing by customer economic movement">
+    <Panel title="Opportunity sizing" description={`Market sizing by route for ${strategy.category}`}>
       <div className="sizing-summary">
         <div>
           <span>Total modeled opportunity</span>
-          <strong>GBP 150M</strong>
+          <strong>{strategy.opportunitySize}</strong>
         </div>
-        <Badge tone="info">HC model to validate</Badge>
+        <Badge tone={strategy.statusTone}>{strategy.status}</Badge>
       </div>
       <div className="bar-list">
-        {sizing.map((item) => (
-          <div className="bar-row" key={item.label}>
-            <div>
-              <strong>{item.label}</strong>
-              <span>{item.value}</span>
+        {strategy.opportunities.map((item) => {
+          const percent = Math.round((numericSize(item.sizing) / totalOpportunity) * 100);
+
+          return (
+            <div className="bar-row" key={item.id}>
+              <div>
+                <strong>{item.route}</strong>
+                <span>{item.sizing}</span>
+              </div>
+              <div className="bar-track">
+                <span style={{ width: `${percent}%` }} />
+              </div>
             </div>
-            <div className="bar-track">
-              <span style={{ width: `${item.percent}%` }} />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </Panel>
   );
 }
 
-function CvdPanel() {
+function CvdPanel({ opportunity }: { opportunity: StrategyOpportunity }) {
   return (
     <Panel title="Recommended CVD" description="Category Value Driver fit">
       <div className="cvd-card">
         <div className="cvd-score">
-          <strong>87%</strong>
+          <strong>{opportunity.confidence}</strong>
           <span>confidence</span>
         </div>
         <div>
-          <Badge tone="brand">Freshness / Premium Fragrance Experience</Badge>
-          <h3>Fragrance-led premiumisation is emerging as a key UK deodorants opportunity.</h3>
+          <Badge tone="brand">{opportunity.cvd}</Badge>
+          <h3>{opportunity.title}</h3>
         </div>
       </div>
       <ul className="check-list">
-        <li>
-          <CheckCircle2 size={16} />
-          Shopper demand increasing
-        </li>
-        <li>
-          <CheckCircle2 size={16} />
-          Social buzz increasing
-        </li>
-        <li>
-          <CheckCircle2 size={16} />
-          Innovation activity increasing
-        </li>
+        {opportunity.evidence.map((item) => (
+          <li key={item}>
+            <CheckCircle2 size={16} />
+            {item}
+          </li>
+        ))}
       </ul>
     </Panel>
   );
 }
 
-function NarrativePanel({ setActivePage }: { setActivePage: (page: PageId) => void }) {
+function NarrativePanel({
+  opportunity,
+  setActivePage,
+}: {
+  opportunity: StrategyOpportunity;
+  setActivePage: (page: PageId) => void;
+}) {
   return (
     <Panel
       title="Narrative draft"
@@ -964,27 +1006,28 @@ function NarrativePanel({ setActivePage }: { setActivePage: (page: PageId) => vo
       }
     >
       <article className="narrative-card">
-        <Badge tone="brand">Draft narrative</Badge>
-        <h2>Fragrance-led premiumisation is reshaping UK Deodorants</h2>
+        <Badge tone={opportunity.statusTone}>{opportunity.status}</Badge>
+        <h2>{opportunity.title}</h2>
         <div className="narrative-columns">
           <div>
             <h3>Evidence</h3>
             <ul>
-              <li>Premium deodorants are growing faster than the category.</li>
-              <li>Social conversations around fragrance continue to rise.</li>
-              <li>Innovation activity is concentrated around premium fragrance propositions.</li>
+              {opportunity.evidence.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </div>
           <div>
             <h3>Strategic implication</h3>
-            <p>Retailers can unlock growth by expanding premium fragrance-led offerings and supporting trade-up behaviour.</p>
+            <p>{opportunity.recommendation}</p>
           </div>
         </div>
         <div className="citation-row">
-          <Badge tone="neutral">Euromonitor</Badge>
-          <Badge tone="neutral">Meltwater</Badge>
-          <Badge tone="neutral">Kantar</Badge>
-          <Badge tone="neutral">Historical CCGS</Badge>
+          {opportunity.sourcesUsed.map((source) => (
+            <Badge key={source} tone="neutral">
+              {source}
+            </Badge>
+          ))}
         </div>
       </article>
     </Panel>
@@ -1956,6 +1999,7 @@ function SettingsPage() {
 
 export function App() {
   const [activePage, setActivePage] = useState<PageId>("command");
+  const [activeStrategyCategory, setActiveStrategyCategory] = useState(historicalCategories[0].category);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -1963,7 +2007,12 @@ export function App() {
     notifications.filter((notification) => !notification.unread).map((notification) => notification.id),
   );
   const pageLabel = useMemo(() => navItems.find((item) => item.id === activePage)?.label ?? "Command Center", [activePage]);
-  const pageContext = activePage === "history" ? "UK Personal Care PoC" : "UK Deodorants PoC";
+  const pageContext =
+    activePage === "history"
+      ? "UK Personal Care PoC"
+      : activePage === "command"
+        ? `UK ${activeStrategyCategory} PoC`
+        : "UK Deodorants PoC";
   const unreadCount = notifications.filter((notification) => !readNotificationIds.includes(notification.id)).length;
 
   function openPage(page: PageId) {
@@ -2006,7 +2055,13 @@ export function App() {
       case "settings":
         return <SettingsPage />;
       default:
-        return <CommandCenterPage setActivePage={openPage} />;
+        return (
+          <CommandCenterPage
+            activeCategory={activeStrategyCategory}
+            setActiveCategory={setActiveStrategyCategory}
+            setActivePage={openPage}
+          />
+        );
     }
   }
 

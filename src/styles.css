@@ -600,25 +600,49 @@ label,
   line-height: 30px;
 }
 
+.question-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
 .brief-controls {
   display: grid;
   gap: 12px;
 }
 
-.select-button {
+.select-field {
+  position: relative;
   display: flex;
   width: 100%;
   min-height: 40px;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-md);
   background: #ffffff;
   color: var(--gray-700);
-  padding: 0 12px;
-  font-size: 14px;
   box-shadow: var(--shadow-xs);
+}
+
+.select-field select {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  border: 0;
+  appearance: none;
+  background: transparent;
+  color: var(--gray-700);
+  font-size: 14px;
+  line-height: 20px;
+  padding: 0 38px 0 12px;
+}
+
+.select-field svg {
+  position: absolute;
+  right: 12px;
+  color: var(--gray-500);
+  pointer-events: none;
 }
 
 .table-shell {
